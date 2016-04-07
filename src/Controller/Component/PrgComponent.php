@@ -21,6 +21,16 @@ class PrgComponent extends Component {
 
         if (!$request->is('post')) {
             if ($session->check($filter_session_name)) {
+                $referer = $request->referer(true);
+                
+                if (strpos($request->referer(true), '?')) {
+                    $referer = explode('?', $request->referer(true))[0];
+                }
+                
+                if (empty($request->query['page']) && $referer == $request->here) {
+                    $request->query['page'] = 1;
+                }
+                
                 $request->query = array_merge($session->read($filter_session_name), $request->query);
             }
 
