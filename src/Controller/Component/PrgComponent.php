@@ -35,7 +35,13 @@ class PrgComponent extends Component {
             }
 
             $request->data = $request->query;
-            $session->write($filter_session_name, $request->data);
+
+            if (!empty($request->query['filter'])) {
+                if (!empty($request->data['filter']))
+                    unset($request->data['filter']);
+                
+                $session->write($filter_session_name, $request->data);
+            }
             return;
         }
 
