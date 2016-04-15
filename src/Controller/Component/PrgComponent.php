@@ -17,7 +17,8 @@ class PrgComponent extends Component {
         $controller = $this->_registry->getController();
         $request = $controller->request;
         $session = $request->session();
-        $filter_session_name = 'Search' . $controller->here;
+
+        $filter_session_name = 'Search' . $request->here;
 
         if (!$request->is('post')) {
             if ($session->check($filter_session_name)) {
